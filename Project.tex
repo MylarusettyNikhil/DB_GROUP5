@@ -1,0 +1,102 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage[a4paper,top=3cm,bottom=2cm,left=1cm,right=1cm,marginparwidth=1.75cm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[spanish,english]{babel}
+
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		
+		\huge Data Analysis of USA Countrywide Accidents Report 
+ \\
+}
+\usepackage{authblk}
+\author{ Kalyan Vikkurthi, Nikhil Mylarusetty, Jay Dale }
+
+\begin{document}
+\maketitle
+
+
+\selectlanguage{english}
+\begin{abstract}
+In many parts of the world, accident cases are ignored and are not taken seriously. Statistics show that there are between 20 and 50 million accidents per year. According to the National Highway Traffic Safety Administration, there are 64 million road crashes in the United States each year. Each day, 90 people die in traffic accidents. This is the leading cause of death in the USA. There is something that needs to be done about this. These statistics piqued our curiosity and motivated us to find out what causes accidents. 
+
+The reduction of road accidents is an important public safety policy that requires extensive analysis. Since this is one of the major issues in the current world, we decided to analyze the accident dataset available from Kaggle. We analyzed traffic accident data thoroughly and performed analytics on the top 20 USA cities to identify contributing causes based on the trends and propose remedies.
+
+\end{abstract} 
+
+\section{1. Introduction}
+Data analysis involves gathering, transforming, cleaning, and modeling data to find the information needed. In today's world, data analytics techniques are used in every field, including business, finance, criminal justice, science, medicine, and government. You can take raw data and uncover patterns to extract valuable insights.
+In terms of our project, we chose to work on a car accident database. The reason is those car accidents are not taken seriously; data shows that 19937 crashes occur every day in the United States. Road transport is the most unsafe circumstance individuals face every day, but casualty figures from such occurrences pull in less media attention than other, less visited types of catastrophes.
+
+Before we analyzed the dataset, we made the preprocessing with the help of python such as removing the null values, removing the unnecessary columns, replacing the NULL values, etc.  We analyzed the data from car accident databases and obtained results to provide some meaningful insights into the data. We also worked with the data to determine the major causes of the accidents, as well as the locations where the accidents occurred.  We used different types of technologies such as the oracle cloud instance for deploying the on-premises MYSQL server and using google big query to perform analytics.
+
+
+\section{3. Data Description}
+Our dataset has approximately 619912 million recordings that are sourced from a variety of APIs. These include records from transportation organizations, police agencies, traffic cameras, and traffic sensors integrated into road networks. The data, which has been analyzed, contains information on occurrences that have taken place in 20 cities, with crucial details dispersed among 47 columns. The collection includes latitude and longitude information, which allows us to determine the exact location of a site and display the data using maps.
+We decided to trim down this dataset by removing about 4 columns that contained extraneous information from the 47 columns. The civil twilight, nautical light, and astronomical twilight columns have been removed because all the data in these columns are contained in the column Sunrise Sunset. This column indicates when sunrise or sunset occurs. Several columns contained missing data, so we calculated the percentage of missing values in each column to identify any inconsistencies. Column ‘number’ has 61% of the null values of any column, so it was removed. So, all the columns with fewer missing values have been linearly interpolated. 
+Since the data set contains numerous abnormalities, we normalized it to satisfy 1NF, 2NF, and 3NF. Data was divided into 5 csv files as entities after normalization, and relationships between these entities were discovered. Those 5 csv files are accident details, location details, road details, weather details, and state city. So, the details related to accidents are stored in the accident details csv, and other details related to location, weather, and road are stored in their respective csv with ID numbers for all the data to make the data unique.
+ List of features are:  
+\begin{itemize}
+	\item   ID:  This is a unique identifier of the accident record.
+	\item   Severity: State where the disaster occurred
+	    \item   Start_Time: Shows start time of the accident in local time zone.
+    \item   End_Time: Shows end time of the accident in local time zone.
+    \item   Start_Lat: Shows latitude in GPS coordinate of the start point.
+    \item  Start_Lng: Shows longitude in GPS coordinate of the start point.
+    \item   End_Lat: Shows latitude in GPS coordinate of the end point.
+    \item   End_Lng: Shows longitude in GPS coordinate of the end point.
+\end{itemize}   
+
+
+For the second Dataset on Climate Change: Earth Surface Temperature Data, we have taken the data from 1953  to the year 2013 after cleaning the data. To sync the climate dataset to Us natural Disaster Declaration we have changed the average temperature per month to the average temperature per year using python pandas.
+We have performed Normalization on the datasets and normalized up to 3NF for both the datasets and divided them into 6 CSV files from two Datasets. Five are from the Disasters Dataset and the remaining one is from Climate Change Dataset. The tables of US Disaster DataSet include disaster, state, program, incident, and declaration. The table from the Climate change Dataset is the Temperature per year.
+{3.1 Exploratory Data Analysis}
+The US Natural Disaster Declaration Dataset actually contains 23 columns where there are columns that do not have any significance for providing some meaningful insights into the data. So we have removed a column called last-ia-filing-date from the dataset because it has more null values and does not have any significance for analyzing the data.
+Moreover,  As our focus is completely only on Natural Disasters and their linkage with climate change we avoided some disasters caused by Humans such as Human Causes, Terrorist attacks, Chemical gas leakage, Biological poisons in lakes or rivers, Fishing Losses, Dam/Levee Break, Toxic Substances in water or soil.
+\section{4. Project Overview}
+We collected our dataset from two sources. Both the datasets that we have chosen are from Kaggle Datasets. One is for US Disasters and the other is for climate change (i.e temperature change). With these Datasets, we have done the following steps for the project
+\begin{itemize}
+	\item   Data Cleaning: Cleani ng operation is performed with python to remove Data that have anomalies and also performs normalization.
+	\item    We created bucket storage in google cloud and then the data is loaded to the bucket which we have divided into tables using python that is normalized.
+	\item  From there the data is transferred to Staging using Apache  Airflow.
+        \item Then we performed ETL operation using Airflow DAG and loaded the tables into google big query from Staging.
+        \item In Google Big query, we performed complex queries to analyze the dataset and get meaningful insights from it using Tableau
+\end{itemize}   
+\section{5. Architecture}
+\section{6. Entity Relationship Diagram}
+\section{7. ETL PROCESS}
+The ETL procedure has been carried out using Apache Airflow. The normalized data has been extracted, transformed, and loaded using Python scripts, which have then been orchestrated using Cloud Composer's Apache Airflow.
+\section{7.1 Extraction}
+\begin{itemize}
+	\item   On the Google Cloud Platform, a bucket has been built to house all the pre-processed data
+	\item  The tables that were normalized in Python and imported into the bucket contain the data
+ \end{itemize}
+ \section{7.2 Transformation}
+\begin{itemize}
+	\item  The Google bucket's data is moved to Staging, where it is then imported into the project's folder's final tables for Google Big Query.
+ \end{itemize}
+  \section{7.3 Loading}
+\begin{itemize}
+	\item  The data is finally loaded from the Staging process onto Google BigQuery.
+ \end{itemize}
+ \section{8. DAG WorkFlow}
+In the process of ETL, We have developed python scripts for creating a data pipeline In DAG  for extracting data into the bucket using Apache Airflow, transforming the data in pandas, and finally loading the dataset into Google Big Query.
+First, we created a pipeline in the Apache Airflow and then the data is extracted from the source of google bucket to Staging (Loading-staging-Dataset) and from there all the tables are loaded and checked. Moving further, a dimension table is created and then the tables are created. Finally, the fact table is created and checked, and closed the pipeline.
+ \section{9. Analytics performed in Google Big Query}
+ After completing all ETL operations, the data is loaded into google big query where we have attempted to obtain significant extracts from the data since the big query enables SQL capabilities.
+ \section{9.1 Number of times each type of incident occurred in each year}
+ \section{9.2 Number of times each incident occurs for each state and average temperature for all years}
+ \section{9.3  Ranking of states by the number of each incident occurrences}
+\section{10. Data Visualization}
+\section{11. Key Learnings}
+\begin{itemize}
+	\item   Data Cleaning: Cleaning operation is performed with python to remove Data that have anomalies and also performs normalization.
+	\item  To perform ETL operations for huge datasets
+	\item  Analyzed what types of natural disasters occur frequently and their relation with temperature
+        \item We have worked with Google Bigquery which is very sophisticated to handle big queries on a huge dataset and performed insightful visualizations.
+        \item Learnt how tableau can be connected to Google Big Query
+\end{itemize}   
+\end{document}
+
